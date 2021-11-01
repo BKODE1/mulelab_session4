@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="baa0df23-ab8d-4dbf-b70c-1634b7acd3c1" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="d9bb5758-acab-4b39-b932-d4fb751c1e0d" />
+	<configuration-properties doc:name="Configuration properties" doc:id="d35074a4-2835-44d5-93c2-636debf75764" file="config.properties" />
+	<configuration-properties doc:name="Configuration properties" doc:id="f2ed0abd-33ca-41b9-a862-299e4f5cc379" file="myconfig.yaml" />
+	<flow name="mulesoftab-session4Flow" doc:id="dc615385-e3ac-4e16-bc10-bed2a1de1e01" >
+		<http:listener doc:name="Listener" doc:id="1d236f4f-7ca6-4383-9445-ff6ba1b63d3a" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6d3f86f1-6308-493e-bb7b-fc698334b285" message="Before Setting Variables"/>
+		<set-payload value="#[p('message')]" doc:name="Set Payload" doc:id="724fc0d2-206a-40dc-9e2b-132798593220" />
+	</flow>
+	<flow name="mulesoftab-session4Flow1-private-flow" doc:id="557711bd-2e45-4205-a0d3-377cbfa3f401" >
+		<logger level="INFO" doc:name="Logger" doc:id="b4e9f905-d130-4aa7-8f1b-e2b0bda89147" message="After setting varibales" />
+	</flow>
+	<sub-flow name="mulesoftab-session4Sub_Flow" doc:id="0dfe9860-bc81-4bcf-a9ae-10ea7998b151" >
+		<set-payload value='#["Hi you are in sub flow"]' doc:name="sub flow payload" doc:id="cdd6cb8c-6a05-4037-af1c-b3bdc904f073" />
+	</sub-flow>
+</mule>
